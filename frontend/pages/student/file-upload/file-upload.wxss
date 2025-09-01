@@ -1,0 +1,217 @@
+/* pages/student/file-upload/file-upload.wxss */
+.upload-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f5f5;
+}
+
+/* 导航栏 */
+.nav-bar {
+  height: 120rpx;
+  background-color: #1976d2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32rpx;
+  color: white;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  font-size: 32rpx;
+}
+
+.nav-icon {
+  font-size: 36rpx;
+  margin-right: 8rpx;
+}
+
+.nav-title {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.nav-right {
+  width: 120rpx;
+}
+
+/* 内容区域 */
+.content {
+  flex: 1;
+  padding: 32rpx;
+}
+
+/* 任务信息 */
+.task-info {
+  background-color: white;
+  border-radius: 16rpx;
+  padding: 32rpx;
+  margin-bottom: 32rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+.task-title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333333;
+}
+
+.task-icon {
+  font-size: 32rpx;
+  margin-right: 12rpx;
+}
+
+.deadline {
+  display: flex;
+  align-items: center;
+  font-size: 28rpx;
+  color: #f44336;
+}
+
+.time-icon {
+  font-size: 28rpx;
+  margin-right: 12rpx;
+}
+
+/* 文件选择区域 */
+.file-select-section {
+  background-color: white;
+  border-radius: 16rpx;
+  padding: 32rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+.select-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 24rpx;
+}
+
+.select-buttons {
+  display: flex;
+  gap: 24rpx;
+  margin-bottom: 32rpx;
+}
+
+.select-btn {
+  flex: 1;
+  height: 80rpx;
+  background-color: #1976d2;
+  color: white;
+  border-radius: 12rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  border: none;
+}
+
+.btn-icon {
+  font-size: 28rpx;
+  margin-right: 12rpx;
+}
+
+/* 已选文件 */
+.selected-files {
+  margin-top: 24rpx;
+}
+
+.files-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 16rpx;
+}
+
+.file-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16rpx;
+  background-color: #f8f9fa;
+  border-radius: 12rpx;
+  margin-bottom: 12rpx;
+}
+
+.file-info {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.file-icon {
+  font-size: 32rpx;
+  margin-right: 16rpx;
+}
+
+.file-details {
+  flex: 1;
+}
+
+.file-name {
+  display: block;
+  font-size: 28rpx;
+  color: #333333;
+  margin-bottom: 4rpx;
+}
+
+.file-size {
+  font-size: 24rpx;
+  color: #666666;
+}
+
+.remove-btn {
+  font-size: 24rpx;
+  padding: 8rpx;
+}
+
+/* 空状态 */
+.empty-files {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80rpx 0;
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 16rpx;
+  color: #cccccc;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999999;
+}
+
+/* 底部操作 */
+.bottom-actions {
+  padding: 24rpx 32rpx;
+  background-color: white;
+  border-top: 1rpx solid #e0e0e0;
+}
+
+.submit-btn {
+  width: 100%;
+  height: 96rpx;
+  background-color: #4caf50;
+  color: white;
+  border-radius: 16rpx;
+  font-size: 32rpx;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+
+.submit-btn.disabled {
+  background-color: #cccccc;
+  color: #999999;
+}

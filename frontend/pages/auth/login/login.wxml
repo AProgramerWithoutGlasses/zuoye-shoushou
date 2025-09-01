@@ -1,0 +1,102 @@
+<!--pages/auth/login/login.wxml-->
+<view class="login-container">
+  <!-- 状态栏 -->
+  <view class="status-bar">
+    <text class="time">9:41</text>
+    <view class="status-icons">
+      <text class="signal">📶</text>
+      <text class="battery">🔋100%</text>
+    </view>
+  </view>
+
+  <!-- 导航栏 -->
+  <view class="nav-bar">
+    <view class="nav-left" bindtap="onBack">
+      <text class="nav-icon">←</text>
+      <text>返回</text>
+    </view>
+    <view class="nav-title">登录验证</view>
+    <view class="nav-right"></view>
+  </view>
+
+  <!-- 表单内容 -->
+  <view class="form-container">
+    <!-- 表单标题 -->
+    <view class="form-title">
+      <text>请输入登录信息</text>
+    </view>
+
+    <!-- 用户类型选择 -->
+    <view class="user-type-section">
+      <radio-group bindchange="onUserTypeChange">
+        <label class="radio-item">
+          <radio value="student" checked="{{userType === 'student'}}" color="#1976D2"/>
+          <text class="radio-text">🔘 学生 (学号)</text>
+        </label>
+        <label class="radio-item">
+          <radio value="teacher" checked="{{userType === 'teacher'}}" color="#1976D2"/>
+          <text class="radio-text">⚪ 教师 (手机号)</text>
+        </label>
+      </radio-group>
+    </view>
+
+    <!-- 账号输入框 -->
+    <view class="input-section">
+      <view class="input-group">
+        <view class="input-wrapper">
+          <text class="input-icon">📱</text>
+          <input 
+            class="input-field" 
+            placeholder="{{userType === 'student' ? '请输入学号' : '请输入手机号'}}"
+            value="{{username}}"
+            bindinput="onUsernameInput"
+            maxlength="20"
+          />
+        </view>
+      </view>
+
+      <!-- 密码输入框 -->
+      <view class="input-group">
+        <view class="input-wrapper">
+          <text class="input-icon">🔒</text>
+          <input 
+            class="input-field" 
+            placeholder="请输入密码"
+            password="{{!showPassword}}"
+            value="{{password}}"
+            bindinput="onPasswordInput"
+            maxlength="20"
+          />
+          <text class="password-toggle" bindtap="onTogglePassword">
+            {{showPassword ? '🙈' : '👁️'}}
+          </text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 登录按钮 -->
+    <view class="login-button-section">
+      <button 
+        class="login-button {{username && password ? '' : 'disabled'}}" 
+        bindtap="onLogin"
+        disabled="{{!username || !password}}"
+      >
+        登录
+      </button>
+    </view>
+
+    <!-- 帮助信息 -->
+    <view class="help-section">
+      <view class="help-item">
+        <text class="warning-icon">⚠️</text>
+        <text class="help-text">账号由教师统一分配</text>
+      </view>
+      <view class="help-item">
+        <text class="help-text">如有问题请联系相关教师</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部留白 -->
+  <view class="bottom-spacer"></view>
+</view>

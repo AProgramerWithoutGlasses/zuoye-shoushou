@@ -1,0 +1,106 @@
+<!--pages/teacher/task-detail/task-detail.wxml-->
+<view class="task-detail-container">
+  <!-- 状态栏 -->
+  <view class="status-bar">
+    <text class="time">9:41</text>
+    <view class="status-icons">
+      <text class="signal">📶</text>
+      <text class="battery">🔋100%</text>
+    </view>
+  </view>
+
+  <!-- 导航栏 -->
+  <view class="nav-bar">
+    <view class="nav-back" bindtap="onBack">
+      <text class="back-icon">←</text>
+    </view>
+    <view class="nav-title">任务详情</view>
+    <view class="nav-edit" bindtap="onEditTask">
+      <text class="edit-text">编辑</text>
+    </view>
+  </view>
+
+  <!-- 内容区域 -->
+  <view class="content">
+    <view class="loading-state" wx:if="{{loading}}">
+      <view class="loading-text">加载中...</view>
+    </view>
+
+    <view class="task-info" wx:if="{{!loading && taskInfo}}">
+      <!-- 任务基本信息 -->
+      <view class="info-card">
+        <view class="task-title">{{taskInfo.title}}</view>
+        <view class="task-status status-{{taskInfo.status}}">{{taskInfo.status_text}}</view>
+        <view class="task-desc">{{taskInfo.description}}</view>
+        
+        <view class="task-meta">
+          <view class="meta-item">
+            <text class="meta-label">开始时间:</text>
+            <text class="meta-value">{{taskInfo.start_time}}</text>
+          </view>
+          <view class="meta-item">
+            <text class="meta-label">截止时间:</text>
+            <text class="meta-value">{{taskInfo.end_time}}</text>
+          </view>
+          <view class="meta-item">
+            <text class="meta-label">文件格式:</text>
+            <text class="meta-value">{{taskInfo.allowed_formats.join(', ')}}</text>
+          </view>
+          <view class="meta-item">
+            <text class="meta-label">最大大小:</text>
+            <text class="meta-value">{{taskInfo.max_file_size}}MB</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 提交统计 -->
+      <view class="stats-card">
+        <view class="stats-title">提交统计</view>
+        <view class="stats-grid">
+          <view class="stat-item">
+            <view class="stat-number">{{taskInfo.total_students}}</view>
+            <view class="stat-label">总学生数</view>
+          </view>
+          <view class="stat-item">
+            <view class="stat-number">{{taskInfo.submitted_count}}</view>
+            <view class="stat-label">已提交</view>
+          </view>
+          <view class="stat-item">
+            <view class="stat-number">{{taskInfo.on_time_count}}</view>
+            <view class="stat-label">按时提交</view>
+          </view>
+          <view class="stat-item">
+            <view class="stat-number">{{taskInfo.total_students - taskInfo.submitted_count}}</view>
+            <view class="stat-label">未提交</view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 提交列表 -->
+      <view class="submissions-card">
+        <view class="card-title">提交记录</view>
+        <view class="submission-list">
+          <view class="submission-item" wx:for="{{submissions}}" wx:key="id" bindtap="onViewSubmission" data-id="{{item.id}}">
+            <view class="submission-header">
+              <view class="student-name">{{item.student_name}}</view>
+              <view class="submission-status status-{{item.status}}">{{item.status_text}}</view>
+            </view>
+            <view class="submission-info">
+              <view class="submission-time" wx:if="{{item.submitted_at}}">
+                提交时间: {{item.submitted_at}}
+              </view>
+              <view class="submission-score" wx:if="{{item.score}}">
+                得分: {{item.score}}
+              </view>
+            </view>
+          </view>
+          
+          <view class="empty-state" wx:if="{{submissions.length === 0}}">
+            <view class="empty-icon">📝</view>
+            <view class="empty-text">暂无提交记录</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

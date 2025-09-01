@@ -1,0 +1,293 @@
+/* pages/teacher/task-detail/task-detail.wxss */
+.task-detail-container {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 状态栏 */
+.status-bar {
+  height: 44px;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  font-size: 14px;
+  color: #333;
+}
+
+.status-icons {
+  display: flex;
+  gap: 4px;
+}
+
+/* 导航栏 */
+.nav-bar {
+  height: 56px;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.nav-back {
+  display: flex;
+  align-items: center;
+}
+
+.back-icon {
+  font-size: 20px;
+  color: #333;
+}
+
+.nav-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.nav-edit {
+  display: flex;
+  align-items: center;
+}
+
+.edit-text {
+  font-size: 14px;
+  color: #007aff;
+}
+
+/* 内容区域 */
+.content {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+/* 加载状态 */
+.loading-state {
+  text-align: center;
+  padding: 40px 20px;
+  background-color: #fff;
+  border-radius: 12px;
+}
+
+.loading-text {
+  font-size: 14px;
+  color: #666;
+}
+
+/* 任务信息 */
+.task-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.info-card {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.task-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.task-status {
+  display: inline-block;
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.status-draft {
+  background-color: #f0f0f0;
+  color: #666;
+}
+
+.status-active {
+  background-color: #e8f5e8;
+  color: #28a745;
+}
+
+.status-expired {
+  background-color: #ffe8e8;
+  color: #dc3545;
+}
+
+.status-completed {
+  background-color: #e8f4fd;
+  color: #007bff;
+}
+
+.task-desc {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.task-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.meta-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.meta-label {
+  font-size: 14px;
+  color: #666;
+}
+
+.meta-value {
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+}
+
+/* 统计卡片 */
+.stats-card {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.stats-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 24px;
+  font-weight: 700;
+  color: #007aff;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: #666;
+}
+
+/* 提交卡片 */
+.submissions-card {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.submission-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.submission-item {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.submission-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.student-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.submission-status {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.status-pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-submitted {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+.status-late {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.status-reviewed {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.submission-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.submission-time,
+.submission-score {
+  font-size: 12px;
+  color: #666;
+}
+
+/* 空状态 */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.empty-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.empty-text {
+  font-size: 16px;
+  color: #666;
+}

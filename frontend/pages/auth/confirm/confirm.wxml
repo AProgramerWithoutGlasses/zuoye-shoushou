@@ -1,0 +1,69 @@
+<!--pages/auth/confirm/confirm.wxml-->
+<view class="confirm-container">
+  <!-- 状态栏 -->
+  <view class="status-bar">
+    <text class="time">9:41</text>
+    <view class="status-icons">
+      <text class="signal">📶</text>
+      <text class="battery">🔋100%</text>
+    </view>
+  </view>
+
+  <!-- 导航栏 -->
+  <view class="nav-bar">
+    <view class="nav-title">身份确认</view>
+  </view>
+
+  <!-- 内容区域 -->
+  <view class="content">
+    <!-- 用户信息卡片 -->
+    <view class="user-card">
+      <view class="avatar-section">
+        <text class="avatar-icon">👤</text>
+      </view>
+      <view class="user-info">
+        <view class="user-name">{{userInfo.name || '用户'}}</view>
+        <view class="user-detail" wx:if="{{userInfo.role === 'student'}}">
+          <text class="detail-icon">🎓</text>
+          <text>{{userInfo.major || '专业'}}{{userInfo.grade || '年级'}}</text>
+        </view>
+        <view class="user-detail" wx:if="{{userInfo.role === 'teacher'}}">
+          <text class="detail-icon">🏫</text>
+          <text>{{userInfo.department || '部门'}}</text>
+        </view>
+        <view class="user-id">
+          <text class="detail-icon">📚</text>
+          <text wx:if="{{userInfo.role === 'student'}}">学号: {{userInfo.student_id || userInfo.username}}</text>
+          <text wx:if="{{userInfo.role === 'teacher'}}">工号: {{userInfo.teacher_id || userInfo.username}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 角色确认 -->
+    <view class="role-confirm">
+      <view class="confirm-item">
+        <text class="confirm-icon">✅</text>
+        <text class="confirm-text">
+          确认身份: {{userInfo.role === 'student' ? '学生' : '教师'}}
+        </text>
+      </view>
+    </view>
+
+    <!-- 进入按钮 -->
+    <view class="enter-section">
+      <button class="enter-button" bindtap="onEnterSystem">
+        进入系统
+      </button>
+    </view>
+
+    <!-- 重新登录 -->
+    <view class="relogin-section">
+      <text class="relogin-text" bindtap="onReLogin">
+        不是我的账号？重新登录
+      </text>
+    </view>
+  </view>
+
+  <!-- 底部留白 -->
+  <view class="bottom-spacer"></view>
+</view>

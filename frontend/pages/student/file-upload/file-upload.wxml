@@ -1,0 +1,72 @@
+<!--pages/student/file-upload/file-upload.wxml-->
+<view class="upload-container">
+  <!-- 导航栏 -->
+  <view class="nav-bar">
+    <view class="nav-left" bindtap="onCancel">
+      <text class="nav-icon">←</text>
+      <text>取消</text>
+    </view>
+    <view class="nav-title">上传文件</view>
+    <view class="nav-right"></view>
+  </view>
+
+  <!-- 内容区域 -->
+  <view class="content">
+    <!-- 任务信息 -->
+    <view class="task-info" wx:if="{{task}}">
+      <view class="task-title">
+        <text class="task-icon">📄</text>
+        <text>{{task.title}}</text>
+      </view>
+      <view class="deadline">
+        <text class="time-icon">⏰</text>
+        <text>截止: {{task.end_time}}</text>
+      </view>
+    </view>
+
+    <!-- 文件选择 -->
+    <view class="file-select-section">
+      <view class="select-title">选择文件</view>
+      
+      <view class="select-buttons">
+        <button class="select-btn" bindtap="onChooseFile">
+          <text class="btn-icon">📱</text>
+          <text>从本机选择</text>
+        </button>
+      </view>
+
+      <!-- 已选文件 -->
+      <view class="selected-files" wx:if="{{selectedFiles.length > 0}}">
+        <view class="files-title">已选文件</view>
+        <view class="file-item" wx:for="{{selectedFiles}}" wx:key="index">
+          <view class="file-info">
+            <text class="file-icon">📄</text>
+            <view class="file-details">
+              <text class="file-name">{{item.name}}</text>
+              <text class="file-size">{{item.size}} bytes</text>
+            </view>
+          </view>
+          <text class="remove-btn" bindtap="onRemoveFile" data-index="{{index}}">❌</text>
+        </view>
+      </view>
+
+      <!-- 空状态 -->
+      <view class="empty-files" wx:if="{{selectedFiles.length === 0}}">
+        <text class="empty-icon">📁</text>
+        <text class="empty-text">请选择要上传的文件</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部操作 -->
+  <view class="bottom-actions">
+    <button 
+      class="submit-btn {{selectedFiles.length === 0 || uploading ? 'disabled' : ''}}" 
+      bindtap="onSubmit"
+      disabled="{{selectedFiles.length === 0 || uploading}}"
+    >
+      <text wx:if="{{!uploading}}">✅ 确认提交</text>
+      <text wx:if="{{uploading}}">上传中...</text>
+    </button>
+  </view>
+</view>

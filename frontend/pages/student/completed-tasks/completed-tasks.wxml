@@ -1,0 +1,62 @@
+<!--pages/student/completed-tasks/completed-tasks.wxml-->
+<view class="completed-container">
+  <!-- 导航栏 -->
+  <view class="nav-bar">
+    <view class="nav-title">
+      <text class="title-icon">✅</text>
+      <text class="title-text">已完成任务</text>
+    </view>
+  </view>
+
+  <!-- 任务列表 -->
+  <scroll-view 
+    class="task-list" 
+    scroll-y 
+    refresher-enabled 
+    bindrefresherrefresh="refreshTasks"
+    bindscrolltolower="loadMoreTasks"
+  >
+    <view class="task-item" wx:for="{{tasks}}" wx:key="id" bindtap="onTaskTap" data-task-id="{{item.task.id}}">
+      <view class="task-header">
+        <text class="task-icon">✅</text>
+        <text class="task-title">{{item.task.title}}</text>
+        <view class="task-status">已完成</view>
+      </view>
+      
+      <view class="task-info">
+        <text class="info-text">已于 {{formatTime(item.submitted_at)}} 提交</text>
+      </view>
+      
+      <view class="task-meta">
+        <view class="teacher-info">
+          <text class="teacher-icon">👨‍🏫</text>
+          <text class="teacher-name">{{item.task.teacher.name}}</text>
+        </view>
+        <view class="score-info" wx:if="{{item.score !== null}}">
+          <text class="score-icon">⭐</text>
+          <text class="score-text">{{item.score}}分</text>
+        </view>
+      </view>
+
+      <view class="task-actions">
+        <text class="action-btn">🔍 查看详情</text>
+      </view>
+    </view>
+
+    <!-- 加载更多 -->
+    <view class="load-more" wx:if="{{loading}}">
+      <text>加载中...</text>
+    </view>
+
+    <!-- 没有更多数据 -->
+    <view class="no-more" wx:if="{{!hasMore && tasks.length > 0}}">
+      <text>没有更多任务了</text>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{!loading && tasks.length === 0}}">
+      <text class="empty-icon">📭</text>
+      <text class="empty-text">暂无已完成任务</text>
+    </view>
+  </scroll-view>
+</view>

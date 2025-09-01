@@ -1,0 +1,126 @@
+<!--pages/teacher/home/home.wxml-->
+<view class="home-container">
+  <!-- 状态栏 -->
+  <view class="status-bar">
+    <text class="time">9:41</text>
+    <view class="status-icons">
+      <text class="signal">📶</text>
+      <text class="battery">🔋100%</text>
+    </view>
+  </view>
+
+  <!-- 导航栏 -->
+  <view class="nav-bar">
+    <view class="nav-title">教师管理面板</view>
+    <view class="nav-actions">
+      <view class="user-info">
+        <text class="user-name">{{userInfo.name}}</text>
+      </view>
+      <view class="logout-btn" bindtap="onLogout">
+        <text class="logout-icon">🚪</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 内容区域 -->
+  <view class="content">
+    <!-- 统计卡片 -->
+    <view class="stats-section">
+      <view class="stats-grid">
+        <view class="stat-card">
+          <view class="stat-number">{{statistics.totalTasks}}</view>
+          <view class="stat-label">总任务数</view>
+        </view>
+        <view class="stat-card">
+          <view class="stat-number">{{statistics.activeTasks}}</view>
+          <view class="stat-label">进行中</view>
+        </view>
+        <view class="stat-card">
+          <view class="stat-number">{{statistics.totalSubmissions}}</view>
+          <view class="stat-label">总提交</view>
+        </view>
+        <view class="stat-card">
+          <view class="stat-number">{{statistics.pendingReviews}}</view>
+          <view class="stat-label">待批阅</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 快捷操作 -->
+    <view class="quick-actions">
+      <view class="section-title">快捷操作</view>
+      <view class="action-grid">
+        <view class="action-item" bindtap="onPublishTask">
+          <view class="action-icon">📝</view>
+          <view class="action-text">发布任务</view>
+        </view>
+        <view class="action-item" bindtap="onViewSubmissions">
+          <view class="action-icon">📋</view>
+          <view class="action-text">查看提交</view>
+        </view>
+        <view class="action-item" bindtap="onViewStatistics">
+          <view class="action-icon">📊</view>
+          <view class="action-text">统计报告</view>
+        </view>
+        <view class="action-item" bindtap="onManageFiles">
+          <view class="action-icon">📁</view>
+          <view class="action-text">文件管理</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 任务列表 -->
+    <view class="task-section">
+      <view class="section-header">
+        <view class="section-title">我的任务</view>
+        <view class="section-more" bindtap="onViewAllTasks">查看全部</view>
+      </view>
+      
+      <view class="task-list" wx:if="{{!loading}}">
+        <view class="task-item" wx:for="{{taskList}}" wx:key="id" bindtap="onViewTask" data-id="{{item.id}}">
+          <view class="task-header">
+            <view class="task-title">{{item.title}}</view>
+            <view class="task-status status-{{item.status}}">{{item.status_text}}</view>
+          </view>
+          <view class="task-info">
+            <view class="task-desc">{{item.description}}</view>
+            <view class="task-meta">
+              <text class="task-date">截止: {{item.end_time}}</text>
+              <text class="task-count">{{item.submitted_count}}/{{item.total_students}} 已提交</text>
+            </view>
+          </view>
+        </view>
+        
+        <view class="empty-state" wx:if="{{taskList.length === 0}}">
+          <view class="empty-icon">📝</view>
+          <view class="empty-text">暂无任务</view>
+          <view class="empty-desc">点击上方"发布任务"开始创建</view>
+        </view>
+      </view>
+      
+      <view class="loading-state" wx:if="{{loading}}">
+        <view class="loading-text">加载中...</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部导航 -->
+  <view class="bottom-nav">
+    <view class="nav-item active">
+      <view class="nav-icon">🏠</view>
+      <view class="nav-text">首页</view>
+    </view>
+    <view class="nav-item" bindtap="onPublishTask">
+      <view class="nav-icon">📝</view>
+      <view class="nav-text">发布</view>
+    </view>
+    <view class="nav-item" bindtap="onViewSubmissions">
+      <view class="nav-icon">📋</view>
+      <view class="nav-text">提交</view>
+    </view>
+    <view class="nav-item" bindtap="onViewStatistics">
+      <view class="nav-icon">📊</view>
+      <view class="nav-text">统计</view>
+    </view>
+  </view>
+</view>

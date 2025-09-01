@@ -1,0 +1,100 @@
+<!--pages/student/home/home.wxml-->
+<view class="home-container">
+  <!-- 导航栏 -->
+  <view class="nav-bar">
+    <view class="nav-title">
+      <text class="title-icon">📋</text>
+      <text class="title-text">待完成任务</text>
+      <text class="task-count" wx:if="{{pendingCount > 0}}">({{pendingCount}})</text>
+    </view>
+    <view class="nav-search" bindtap="onSearch">
+      <text class="search-icon">🔍</text>
+    </view>
+  </view>
+
+  <!-- 筛选栏 -->
+  <view class="filter-bar">
+    <view class="filter-item" bindtap="onTeacherFilter">
+      <text>{{selectedTeacher || '全部教师'}}</text>
+      <text class="filter-arrow">▼</text>
+    </view>
+    <view class="filter-item" bindtap="onPeriodFilter">
+      <text>{{selectedPeriod ? (selectedPeriod === 'week' ? '本周' : selectedPeriod === 'month' ? '本月' : '即将截止') : '全部时间'}}</text>
+      <text class="filter-arrow">▼</text>
+    </view>
+    <view class="refresh-btn" bindtap="refreshTasks">
+      <text class="refresh-icon">🔄</text>
+    </view>
+  </view>
+
+  <!-- 任务列表 -->
+  <scroll-view 
+    class="task-list" 
+    scroll-y 
+    refresher-enabled 
+    refresher-triggered="{{refreshing}}"
+    bindrefresherrefresh="refreshTasks"
+    bindscrolltolower="loadMoreTasks"
+  >
+    <view class="task-item" wx:for="{{tasks}}" wx:key="id" bindtap="onTaskTap" data-id="{{item.id}}">
+      <!-- 任务标题和状态 -->
+      <view class="task-header">
+        <view class="task-title-row">
+          <text class="task-icon">📄</text>
+          <text class="task-title">{{item.title}}</text>
+          <view class="task-status {{getTaskStatusClass(item)}}">
+            <text wx:if="{{item.submitted}}">✅已提交</text>
+            <text wx:else>🔴未提交</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 任务描述 -->
+      <view class="task-description" wx:if="{{item.description}}">
+        <text class="desc-icon">📝</text>
+        <text class="desc-text">{{item.description}}</text>
+      </view>
+
+      <!-- 时间信息 -->
+      <view class="task-time">
+        <text class="time-icon">⏰</text>
+        <text class="time-text">截止: {{formatTime(item.end_time)}}</text>
+      </view>
+
+      <!-- 教师和统计信息 -->
+      <view class="task-meta">
+        <view class="teacher-info">
+          <text class="teacher-icon">👨‍🏫</text>
+          <text class="teacher-name">{{item.teacher.name}}</text>
+        </view>
+        <view class="submit-stats">
+          <text class="stats-icon">📊</text>
+          <text class="stats-text">{{item.submitted_count}}/{{item.total_students}}已交</text>
+        </view>
+      </view>
+
+      <!-- 操作按钮 -->
+      <view class="task-actions" wx:if="{{!item.submitted}}">
+        <button class="submit-btn" bindtap="onQuickSubmit" data-id="{{item.id}}" catchtap="true">
+          📤 立即提交
+        </button>
+      </view>
+    </view>
+
+    <!-- 加载更多 -->
+    <view class="load-more" wx:if="{{loading}}">
+      <text>加载中...</text>
+    </view>
+
+    <!-- 没有更多数据 -->
+    <view class="no-more" wx:if="{{!hasMore && tasks.length > 0}}">
+      <text>没有更多任务了</text>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{!loading && tasks.length === 0}}">
+      <text class="empty-icon">📭</text>
+      <text class="empty-text">暂无待完成任务</text>
+    </view>
+  </scroll-view>
+</view>

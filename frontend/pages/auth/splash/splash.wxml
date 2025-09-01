@@ -1,0 +1,42 @@
+<!--pages/auth/splash/splash.wxml-->
+<view class="splash-container">
+  <!-- 状态栏 -->
+  <view class="status-bar">
+    <text class="time">9:41</text>
+    <view class="status-icons">
+      <text class="signal">📶</text>
+      <text class="battery">🔋100%</text>
+    </view>
+  </view>
+
+  <!-- 顶部留白 -->
+  <view class="top-spacer"></view>
+
+  <!-- Logo区域 -->
+  <view class="logo-section">
+    <text class="logo-icon">📚</text>
+    <text class="logo-text">文件收取系统</text>
+  </view>
+
+  <!-- 描述文字 -->
+  <view class="description">
+    <text>便捷的师生文件管理平台</text>
+  </view>
+
+  <!-- 中间留白 -->
+  <view class="middle-spacer"></view>
+
+  <!-- 授权按钮 -->
+  <view class="auth-button" bindtap="onWxLogin">
+    <text class="auth-icon">🟢</text>
+    <text class="auth-text">微信授权登录</text>
+  </view>
+
+  <!-- 底部说明 -->
+  <view class="bottom-notice">
+    <text>点击授权即表示同意《用户协议》</text>
+  </view>
+
+  <!-- 安全区域 -->
+  <view class="safe-area"></view>
+</view>

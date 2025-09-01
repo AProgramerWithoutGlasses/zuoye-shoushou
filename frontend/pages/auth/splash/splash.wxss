@@ -1,0 +1,103 @@
+/* pages/auth/splash/splash.wxss */
+.splash-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  position: relative;
+}
+
+.status-bar {
+  height: 88rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 32rpx;
+  font-size: 28rpx;
+}
+
+.status-icons {
+  display: flex;
+  gap: 16rpx;
+}
+
+.top-spacer {
+  height: 200rpx;
+}
+
+.logo-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 240rpx;
+}
+
+.logo-icon {
+  font-size: 120rpx;
+  margin-bottom: 20rpx;
+}
+
+.logo-text {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: white;
+}
+
+.description {
+  text-align: center;
+  height: 120rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.description text {
+  font-size: 32rpx;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.middle-spacer {
+  flex: 1;
+  min-height: 300rpx;
+}
+
+.auth-button {
+  margin: 0 64rpx;
+  height: 96rpx;
+  background-color: #07c160;
+  border-radius: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.2);
+}
+
+.auth-icon {
+  font-size: 32rpx;
+  margin-right: 16rpx;
+}
+
+.auth-text {
+  font-size: 36rpx;
+  font-weight: 500;
+  color: white;
+}
+
+.bottom-notice {
+  height: 160rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 64rpx;
+}
+
+.bottom-notice text {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+}
+
+.safe-area {
+  height: 68rpx;
+}

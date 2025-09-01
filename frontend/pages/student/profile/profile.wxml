@@ -1,0 +1,108 @@
+<!--pages/student/profile/profile.wxml-->
+<view class="profile-container">
+  <!-- 状态栏 -->
+  <view class="status-bar">
+    <text class="time">9:41</text>
+    <view class="status-icons">
+      <text class="signal">📶</text>
+      <text class="battery">🔋100%</text>
+    </view>
+  </view>
+
+  <!-- 导航栏 -->
+  <view class="nav-bar">
+    <view class="nav-title">个人中心</view>
+  </view>
+
+  <!-- 内容区域 -->
+  <view class="content">
+    <!-- 用户信息卡片 -->
+    <view class="user-card">
+      <view class="user-avatar">
+        <text class="avatar-text">{{userInfo.name[0]}}</text>
+      </view>
+      <view class="user-info">
+        <view class="user-name">{{userInfo.name}}</view>
+        <view class="user-details">
+          <text class="student-id">{{userInfo.student_id}}</text>
+          <text class="major">{{userInfo.major}} | {{userInfo.class}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 统计卡片 -->
+    <view class="stats-card">
+      <view class="stats-grid">
+        <view class="stat-item">
+          <view class="stat-number">{{statistics.totalTasks}}</view>
+          <view class="stat-label">总任务</view>
+        </view>
+        <view class="stat-item">
+          <view class="stat-number">{{statistics.completedTasks}}</view>
+          <view class="stat-label">已完成</view>
+        </view>
+        <view class="stat-item">
+          <view class="stat-number">{{statistics.pendingTasks}}</view>
+          <view class="stat-label">待完成</view>
+        </view>
+        <view class="stat-item">
+          <view class="stat-number">{{statistics.averageScore}}</view>
+          <view class="stat-label">平均分</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 功能菜单 -->
+    <view class="menu-section">
+      <view class="menu-item" bindtap="onViewPendingTasks">
+        <view class="menu-icon">📋</view>
+        <view class="menu-text">待完成任务</view>
+        <view class="menu-arrow">></view>
+      </view>
+      
+      <view class="menu-item" bindtap="onViewCompletedTasks">
+        <view class="menu-icon">✅</view>
+        <view class="menu-text">已完成任务</view>
+        <view class="menu-arrow">></view>
+      </view>
+      
+      <view class="menu-item">
+        <view class="menu-icon">📊</view>
+        <view class="menu-text">学习统计</view>
+        <view class="menu-arrow">></view>
+      </view>
+    </view>
+
+    <!-- 设置菜单 -->
+    <view class="menu-section">
+      <view class="menu-item">
+        <view class="menu-icon">⚙️</view>
+        <view class="menu-text">设置</view>
+        <view class="menu-arrow">></view>
+      </view>
+      
+      <view class="menu-item">
+        <view class="menu-icon">❓</view>
+        <view class="menu-text">帮助中心</view>
+        <view class="menu-arrow">></view>
+      </view>
+      
+      <view class="menu-item">
+        <view class="menu-icon">📞</view>
+        <view class="menu-text">联系客服</view>
+        <view class="menu-arrow">></view>
+      </view>
+      
+      <view class="menu-item">
+        <view class="menu-icon">ℹ️</view>
+        <view class="menu-text">关于我们</view>
+        <view class="menu-arrow">></view>
+      </view>
+    </view>
+
+    <!-- 退出登录按钮 -->
+    <view class="logout-section">
+      <button class="logout-btn" bindtap="onLogout">退出登录</button>
+    </view>
+  </view>
+</view>

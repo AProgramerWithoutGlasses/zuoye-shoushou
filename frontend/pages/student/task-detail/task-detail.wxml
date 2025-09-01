@@ -1,0 +1,223 @@
+<!--pages/student/task-detail/task-detail.wxml-->
+<view class="detail-container">
+  <!-- 导航栏 -->
+  <view class="nav-bar">
+    <view class="nav-left" bindtap="onBack">
+      <text class="nav-icon">←</text>
+      <text>返回</text>
+    </view>
+    <view class="nav-title">任务详情</view>
+    <view class="nav-right">
+      <text class="more-icon">⋯</text>
+    </view>
+  </view>
+
+  <!-- 内容区域 -->
+  <scroll-view class="content" scroll-y wx:if="{{!loading}}">
+    <!-- 任务信息区 -->
+    <view class="task-info-section">
+      <view class="task-header">
+        <text class="task-icon">📄</text>
+        <text class="task-title">{{task.title}}</text>
+      </view>
+      
+      <view class="task-description" wx:if="{{task.description}}">
+        <text class="desc-icon">📝</text>
+        <text class="desc-text">{{task.description}}</text>
+      </view>
+
+      <view class="time-info">
+        <view class="time-item">
+          <text class="time-icon">⏰</text>
+          <text class="time-label">开始:</text>
+          <text class="time-value">{{formatTime(task.start_time)}}</text>
+        </view>
+        <view class="time-item">
+          <text class="time-icon">⏰</text>
+          <text class="time-label">截止:</text>
+          <text class="time-value">{{formatTime(task.end_time)}}</text>
+        </view>
+      </view>
+
+      <view class="file-requirements" wx:if="{{task.allowed_formats}}">
+        <view class="req-item">
+          <text class="req-icon">📎</text>
+          <text class="req-label">格式:</text>
+          <text class="req-value">{{allowedFormatsText}}</text>
+        </view>
+        <view class="req-item" wx:if="{{task.filename_template}}">
+          <text class="req-icon">📋</text>
+          <text class="req-label">命名:</text>
+          <text class="req-value">{{task.filename_template}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 提交统计 -->
+    <view class="submit-stats-section">
+      <view class="stats-header">
+        <text class="stats-icon">📊</text>
+        <text class="stats-title">全班提交情况 ({{task.submitted_count}}/{{task.total_students}})</text>
+      </view>
+      <view class="progress-bar">
+        <view class="progress-fill" style="width: {{progressWidth}}%"></view>
+      </view>
+      <view class="stats-details">
+        <view class="stat-item">
+          <text class="stat-label">总人数:</text>
+          <text class="stat-value">{{task.total_students}}人</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-label">已提交:</text>
+          <text class="stat-value success">{{task.submitted_count}}人</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-label">未提交:</text>
+          <text class="stat-value warning">{{unsubmittedCount}}人</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-label">提交率:</text>
+          <text class="stat-value">{{submitRate}}%</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 我的提交状态 -->
+    <view class="my-submission-section">
+      <view class="section-header">
+        <text class="section-icon">📤</text>
+        <text class="section-title">我的提交状态</text>
+      </view>
+      
+      <view class="submission-card" wx:if="{{mySubmission}}">
+        <view class="submission-status">
+          <text class="status-label">状态:</text>
+          <view class="status-tag {{getSubmissionStatusClass(mySubmission)}}">
+            {{getSubmissionStatusText(mySubmission)}}
+          </view>
+        </view>
+        
+        <view class="submission-time" wx:if="{{mySubmission.submitted_at}}">
+          <text class="time-icon">⏰</text>
+          <text>提交时间: {{formatTime(mySubmission.submitted_at)}}</text>
+        </view>
+
+        <!-- 已提交文件列表 -->
+        <view class="submitted-files" wx:if="{{mySubmission.files && mySubmission.files.length > 0}}">
+          <view class="files-header">
+            <text class="files-icon">📁</text>
+            <text>已提交文件</text>
+          </view>
+          <view class="file-item" wx:for="{{mySubmission.files}}" wx:key="id">
+            <view class="file-info">
+              <text class="file-icon">📄</text>
+              <view class="file-details">
+                <text class="file-name">{{item.original_name}}</text>
+                <text class="file-size">{{formatFileSize(item.file_size)}}</text>
+              </view>
+            </view>
+            <view class="file-actions">
+              <text class="action-btn" bindtap="onPreviewFile" data-url="{{item.file_path}}" data-name="{{item.original_name}}">👁️ 预览</text>
+              <text class="action-btn" bindtap="onDownloadFile" data-url="{{item.file_path}}" data-name="{{item.original_name}}">📥 下载</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- 批阅信息 -->
+        <view class="review-info" wx:if="{{mySubmission.status === 'reviewed'}}">
+          <view class="review-score" wx:if="{{mySubmission.score !== null}}">
+            <text class="score-icon">⭐</text>
+            <text>得分: {{mySubmission.score}}</text>
+          </view>
+          <view class="review-comment" wx:if="{{mySubmission.comment}}">
+            <text class="comment-icon">💬</text>
+            <text class="comment-text">{{mySubmission.comment}}</text>
+          </view>
+        </view>
+
+        <!-- 修改提交按钮 -->
+        <view class="resubmit-section" wx:if="{{mySubmission && mySubmission.status !== 'reviewed'}}">
+          <button class="resubmit-button" bindtap="onResubmit">
+            🔄 修改提交
+          </button>
+        </view>
+      </view>
+
+      <!-- 未提交状态 -->
+      <view class="no-submission" wx:if="{{!mySubmission}}">
+        <text class="no-submission-icon">📭</text>
+        <text class="no-submission-text">尚未提交</text>
+      </view>
+    </view>
+
+    <!-- 提交人员列表 -->
+    <view class="students-list-section">
+      <view class="section-header">
+        <text class="section-icon">📋</text>
+        <text class="section-title">全班学生提交情况 (按学号排序)</text>
+      </view>
+      
+      <!-- 已提交学生 -->
+      <view class="students-group" wx:if="{{submittedStudents.length > 0}}">
+        <view class="group-header">
+          <text class="group-title">✅ 已提交 ({{submittedStudents.length}}人)</text>
+        </view>
+        <view class="student-item" wx:for="{{submittedStudents}}" wx:key="id">
+          <view class="student-info">
+            <text class="student-icon">✅</text>
+            <text class="student-id">{{item.student.student_id || item.student.username}}</text>
+            <text class="student-name">{{item.student.name}}</text>
+          </view>
+          <view class="submit-details">
+            <view class="submit-time">
+              <text class="time-icon">⏰</text>
+              <text>{{formatTime(item.submitted_at)}}</text>
+            </view>
+            <view class="submit-status" wx:if="{{item.is_on_time !== undefined}}">
+              <text class="status-icon" wx:if="{{item.is_on_time}}">🟢</text>
+              <text class="status-icon" wx:if="{{!item.is_on_time}}">🟡</text>
+              <text class="status-text" wx:if="{{item.is_on_time}}">按时</text>
+              <text class="status-text" wx:if="{{!item.is_on_time}}">迟交</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 未提交学生 -->
+      <view class="students-group" wx:if="{{unsubmittedStudents.length > 0}}">
+        <view class="group-header">
+          <text class="group-title">🔴 未提交 ({{unsubmittedStudents.length}}人)</text>
+        </view>
+        <view class="student-item" wx:for="{{unsubmittedStudents}}" wx:key="id">
+          <view class="student-info">
+            <text class="student-icon">🔴</text>
+            <text class="student-id">{{item.student.student_id || item.student.username}}</text>
+            <text class="student-name">{{item.student.name}}</text>
+          </view>
+          <text class="no-submit-text">未提交</text>
+        </view>
+      </view>
+
+      <!-- 空状态 -->
+      <view class="empty-state" wx:if="{{submittedStudents.length === 0 && unsubmittedStudents.length === 0}}">
+        <view class="empty-icon">📝</view>
+        <view class="empty-text">暂无学生数据</view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 底部操作按钮 -->
+  <view class="bottom-actions" wx:if="{{!loading}}">
+    <button class="submit-button" bindtap="onSubmit" wx:if="{{!mySubmission}}">
+      📤 立即提交
+    </button>
+    <view class="deadline-warning" wx:if="{{mySubmission && mySubmission.status === 'reviewed'}}">
+      <text>⚠️ 已批阅，不可修改</text>
+    </view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+</view>
